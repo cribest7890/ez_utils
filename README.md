@@ -1,4 +1,4 @@
-## ez_utils v1.0.0
+## ez_utils
 
 A high-performance utility library designed to eliminate boilerplate code in Go applications. Built for production-scale services and CLI tools.
 

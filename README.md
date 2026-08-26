@@ -8,6 +8,6 @@ A high-performance utility library designed to eliminate boilerplate code in Go 
 
 ### Installation
 ```bash
-go get https://github.com/cribest7890/ez_utils
+go get https://github.com/cribest7890/ez_utils/
 ```
 

@@ -6,9 +6,9 @@
   <a href="https://github.com/cribest7890/ez_utils/releases">
     <img src="https://img.shields.io/github/v/release/cribest7890/ez_utils?style=for-the-badge&label=Latest%20Release&color=2ea44f" alt="Latest Release">
   </a>
-  <a href="https://github.com/cribest7890/ez_utils/blob/main/LICENSE">
+  <!--<a href="https://github.com/cribest7890/ez_utils/blob/main/LICENSE">
     <img src="https://img.shields.io/github/license/cribest7890/ez_utils?style=for-the-badge&color=orange" alt="License">
-  </a>
+  </a>-->
   <a href="https://pkg.go.dev/github.com/cribest7890/ez_utils">
 	<img src="https://img.shields.io/badge/reference-pkg.go.dev-007d9c?style=for-the-badge&logo=go&logoColor=white" alt="Reference">
   </a>

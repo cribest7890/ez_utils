@@ -1,9 +1,8 @@
 ## ez_utils
 
 [![Go](https://img.shields.io/badge/go-1.21-blue?logo=go)](https://golang.org)  
-[![License: AGPL v3](https://img.shields.io/badge/license-AGPL%20v3-blue.svg)](LICENSE)  
+[![License: AGPL v3](https://img.shields.io/badge/license-AGPL%20v3-red.svg)](LICENSE)  
 [![Go Reference](https://pkg.go.dev/badge/github.com/cribest7890/ez_utils.svg)](https://pkg.go.dev/github.com/cribest7890/ez_utils)  
-[![CI](https://github.com/cribest7890/ez_utils/actions/workflows/ci.yml/badge.svg)](https://github.com/cribest7890/ez_utils/actions)
 
 A high-performance utility library to reduce boilerplate in Go applications. Built for production services and CLI tools.
 

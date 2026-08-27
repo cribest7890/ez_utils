@@ -1,7 +1,7 @@
 ## ez_utils
 <p align="center">
   <a href="https://golang.dev">
-    <img src="https://img.shields.io/badge/go-1.21-blue?logo=go&logoColor=white&style=for-the-badge" alt="Go">
+    <img src="https://img.shields.io/badge/go-1.21-blue?logo=go&style=for-the-badge" alt="Go">
   </a>
   <a href="https://github.com/cribest7890/ez_utils/releases">
     <img src="https://img.shields.io/github/v/release/cribest7890/ez_utils?style=for-the-badge&label=Latest%20Release&color=2ea44f" alt="Latest Release">

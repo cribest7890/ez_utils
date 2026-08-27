@@ -11,7 +11,7 @@
   </a>
 </p>
 
-![reference(https://pkg.go.dev/badge/github.com/cribest7890/ez_utils.svg)](https://pkg.go.dev/github.com/cribest7890/ez_utils)  
+![reference](https://pkg.go.dev/badge/github.com/cribest7890/ez_utils.svg)[(https://pkg.go.dev/github.com/cribest7890/ez_utils)]
 
 A high-performance utility library to reduce boilerplate in Go applications. Built for production services and CLI tools.
 

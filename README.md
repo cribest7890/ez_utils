@@ -9,9 +9,10 @@
   <a href="https://github.com/cribest7890/ez_utils/blob/main/LICENSE">
     <img src="https://img.shields.io/github/license/cribest7890/ez_utils?style=for-the-badge&color=1f6feb" alt="License">
   </a>
+  <a href="https://pkg.go.dev/github.com/cribest7890/ez_utils">
+	<img src="https://img.shields.io/badge/reference-pkg.go.dev-007d9c?style=for-the-badge&logo=go&logoColor=white" alt="Reference">
+  </a>
 </p>
-
-![reference](https://pkg.go.dev/badge/github.com/cribest7890/ez_utils.svg)[(https://pkg.go.dev/github.com/cribest7890/ez_utils)]
 
 A high-performance utility library to reduce boilerplate in Go applications. Built for production services and CLI tools.
 

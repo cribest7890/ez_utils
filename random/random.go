@@ -59,7 +59,8 @@ func Shuffle[T any](slice []T) []T {
 	copy(result, slice)
 	for i := len(result) - 1; i > 0; i-- {
 		j := Int(0, i)
-		result[i], result[j] = result[j], result[result[i]]
+		// swap elements i and j
+		result[i], result[j] = result[j], result[i]
 	}
 	return result
 }

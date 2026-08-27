@@ -7,10 +7,9 @@ import (
 	"syscall"
 	"unsafe"
 
-	"golang.org/x/sys/unix" // Pacchetto standard per le costanti di sistema Unix
+	"golang.org/x/sys/unix" // Assicura che i flag del terminale vengano mappati correttamente su Linux
 )
 
-// Cambiamo il tipo in unix.Termios per compatibilità cross-platform
 var origTerm unix.Termios
 
 func Setup() error {
@@ -23,13 +22,14 @@ func Setup() error {
 
 	fd := int(os.Stdin.Fd())
 	
-	// Usiamo unix.SYS_IOCTL e unix.TCGETS per supportare Linux
+	// Lettura corretta dello stato del terminale usando unix.TCGETS
 	if _, _, err := syscall.Syscall6(unix.SYS_IOCTL, uintptr(fd), uintptr(unix.TCGETS), uintptr(unsafe.Pointer(&origTerm)), 0, 0, 0); err != 0 {
 		return err
 	}
 
 	raw := origTerm
-	// Modifichiamo i flag usando le costanti standard del pacchetto unix
+	
+	// Modifica radicale per la Modalità Raw: disattiviamo l'input canonico (ICANON) e l'eco a schermo (ECHO)
 	raw.Iflag &^= unix.IGNBRK | unix.BRKINT | unix.PARMRK | unix.ISTRIP | unix.INLCR | unix.IGNCR | unix.ICRNL | unix.IXON
 	raw.Oflag &^= unix.OPOST
 	raw.Lflag &^= unix.ECHO | unix.ECHONL | unix.ICANON | unix.ISIG | unix.IEXTEN
@@ -38,7 +38,7 @@ func Setup() error {
 	raw.Cc[unix.VMIN] = 1
 	raw.Cc[unix.VTIME] = 0
 
-	// Usiamo unix.TCSETSW per applicare le modifiche dopo che l'output è stato trasmesso
+	// Applicazione immediata dei flag tramite unix.TCSETSW
 	if _, _, err := syscall.Syscall6(unix.SYS_IOCTL, uintptr(fd), uintptr(unix.TCSETSW), uintptr(unsafe.Pointer(&raw)), 0, 0, 0); err != 0 {
 		return err
 	}
@@ -67,7 +67,7 @@ func Restore() error {
 	}
 
 	fd := int(os.Stdin.Fd())
-	// Ripristiniamo lo stato originale usando unix.TCSETSW
+	// Ripristino dello stato originale
 	if _, _, err := syscall.Syscall6(unix.SYS_IOCTL, uintptr(fd), uintptr(unix.TCSETSW), uintptr(unsafe.Pointer(&origTerm)), 0, 0, 0); err != 0 {
 		return err
 	}

@@ -29,7 +29,7 @@ Real-time keyboard input detection with multi-threaded event state tracking for 
 
 ### Installation
 ```bash
-go get github.com/cribest7890/ez_utils
+go get github.com/cribest7890/ez_utils/@latest
 ```
 
 ### Quick Start

@@ -4,10 +4,8 @@ package input
 
 import (
 	"os"
-	"syscall"
-	"unsafe"
 
-	"golang.org/x/sys/unix" // Assicura che i flag del terminale vengano mappati correttamente su Linux
+	"golang.org/x/sys/unix" // Gestisce l'interfaccia con il kernel Linux in modo nativo e sicuro
 )
 
 var origTerm unix.Termios
@@ -22,14 +20,16 @@ func Setup() error {
 
 	fd := int(os.Stdin.Fd())
 	
-	// Lettura corretta dello stato del terminale usando unix.TCGETS
-	if _, _, err := syscall.Syscall6(unix.SYS_IOCTL, uintptr(fd), uintptr(unix.TCGETS), uintptr(unsafe.Pointer(&origTerm)), 0, 0, 0); err != 0 {
+	// Sostituiamo la Syscall6 con il wrapper nativo di Go per leggere lo stato (TCGETS)
+	t, err := unix.IoctlGetTermios(fd, unix.TCGETS)
+	if err != nil {
 		return err
 	}
+	origTerm = *t
 
 	raw := origTerm
 	
-	// Modifica radicale per la Modalità Raw: disattiviamo l'input canonico (ICANON) e l'eco a schermo (ECHO)
+	// Applichiamo i tuoi flag per la modalità Raw
 	raw.Iflag &^= unix.IGNBRK | unix.BRKINT | unix.PARMRK | unix.ISTRIP | unix.INLCR | unix.IGNCR | unix.ICRNL | unix.IXON
 	raw.Oflag &^= unix.OPOST
 	raw.Lflag &^= unix.ECHO | unix.ECHONL | unix.ICANON | unix.ISIG | unix.IEXTEN
@@ -38,8 +38,8 @@ func Setup() error {
 	raw.Cc[unix.VMIN] = 1
 	raw.Cc[unix.VTIME] = 0
 
-	// Applicazione immediata dei flag tramite unix.TCSETSW
-	if _, _, err := syscall.Syscall6(unix.SYS_IOCTL, uintptr(fd), uintptr(unix.TCSETSW), uintptr(unsafe.Pointer(&raw)), 0, 0, 0); err != 0 {
+	// Sostituiamo la Syscall6 con il wrapper nativo per applicare i cambiamenti (TCSETSW)
+	if err := unix.IoctlSetTermios(fd, unix.TCSETSW, &raw); err != nil {
 		return err
 	}
 
@@ -67,8 +67,9 @@ func Restore() error {
 	}
 
 	fd := int(os.Stdin.Fd())
-	// Ripristino dello stato originale
-	if _, _, err := syscall.Syscall6(unix.SYS_IOCTL, uintptr(fd), uintptr(unix.TCSETSW), uintptr(unsafe.Pointer(&origTerm)), 0, 0, 0); err != 0 {
+	
+	// Ripristiniamo lo stato originale in modo sicuro
+	if err := unix.IoctlSetTermios(fd, unix.TCSETSW, &origTerm); err != nil {
 		return err
 	}
 

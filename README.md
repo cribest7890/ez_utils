@@ -34,6 +34,42 @@ Functions:
 
 Supported keys: arrow keys, space, enter, escape, backspace, tab, and alphanumeric keys.
 
+### `convert` — Flexible Type Conversion Utilities
+Helpers to coerce values into common Go types with sensible defaults.
+
+Functions:
+- `ToInt(value any, defaultValue int) int` — Convert many types to int
+- `ToFloat64(value any, defaultValue float64) float64` — Convert to float64
+- `ToString(value any) string` — Convert to string
+- `ToBool(value any, defaultValue bool) bool` — Convert to bool
+
+### `files` — File helper utilities
+Convenience wrappers for common file operations.
+
+Functions:
+- `Exists(path string) bool` — Check if a file or directory exists
+- `Write(path, content string) error` — Write (creates dirs as needed)
+- `Append(path, content string) error` — Append to a file (creates if missing)
+- `Read(path string) (string, error)` — Read file contents
+- `Clear(path string) error` — Truncate file
+- `Delete(path string) error` — Remove file if exists
+
+### `random` — Secure random helpers
+Random generation utilities built on crypto/rand.
+
+Functions:
+- `Int(min, max int) int` — Random int in range
+- `Float64() float64` — Random float in [0,1)
+- `Float64Range(min, max float64) float64` — Random float in range
+- `Bool() bool` — Random boolean
+- `String(length int) string` — Random alphanumeric string
+- `Choice[T any](slice []T) T` — Pick random element
+- `Shuffle[T any](slice []T) []T` — Shuffle slice
+
+### `sys` — OS helpers
+Small utilities for OS-specific behaviors and helpers (platform-specific files included).
+
+
 ## Installation
 
 Requires Go 1.18+
@@ -80,6 +116,56 @@ func main() {
 	age := scanner.Nextint()
 
 	fmt.Printf("Hello %s, you are %d years old!\n", name, age)
+}
+```
+
+### Convert example
+
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/cribest7890/ez_utils/convert"
+)
+
+func main() {
+	fmt.Println(convert.ToInt("42", 0))         // 42
+	fmt.Println(convert.ToFloat64("3.14", 0.0)) // 3.14
+	fmt.Println(convert.ToBool("true", false))  // true
+}
+```
+
+### Files example
+
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/cribest7890/ez_utils/files"
+)
+
+func main() {
+	_ = files.Write("tmp/example.txt", "hello world")
+	content, _ := files.Read("tmp/example.txt")
+	fmt.Println(content)
+}
+```
+
+### Random example
+
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/cribest7890/ez_utils/random"
+)
+
+func main() {
+	fmt.Println(random.Int(1, 10))
+	fmt.Println(random.String(8))
 }
 ```
 

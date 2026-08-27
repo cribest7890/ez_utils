@@ -1,40 +1,53 @@
-## ez_utils
+# ez_utils
 
-A high-performance utility library designed to eliminate boilerplate code in Go applications. Built for production-scale services and CLI tools.
+A high-performance utility library to reduce boilerplate in Go applications. Built for production services and CLI tools.
 
-### Included Packages:
+## Included packages
 
-#### **`colors`** — Terminal Text Coloring
-Simplified terminal text coloring using standard Hex codes (`#000000`) with automatic terminal capability detection.
+### `colors` — Terminal Text Coloring
+Simplified terminal text coloring using standard hex codes (`#000000`) with automatic terminal capability detection.
+
+Features:
 - Supports 24-bit truecolor and 8-color fallback modes
 - 80+ predefined color constants (Red, Blue, Crimson, ForestGreen, etc.)
 - ANSI escape sequence generation
 - Color conversion utilities (`ToRGB`, `ToRGBA`, `HexToAnsi`)
-- Functions: `ColorPrint`, `ColorPrintln`, `SupportsTrueColor()`
+- Convenience functions: `ColorPrint`, `ColorPrintln`, `SupportsTrueColor()`
 
-#### **`scanner`** — Type-Safe CLI Input
+### `scanner` — Type-Safe CLI Input
 A robust CLI input scanner featuring native EOF handling, string sanitization, and type-safe parsing with validation loops.
+
+Functions:
 - `Scanln()` — Read any string (allows empty input)
 - `Nextstring()` — Read non-empty strings with validation
 - `Nextint()` — Read and parse integers
 - `Nextfloat32()` — Read and parse float32 numbers
 - `Nextbool()` — Read booleans (accepts: true/false, 1/0, y/n, yes/no)
 
-#### **`input`** — Keyboard Event Handling
+### `input` — Keyboard Event Handling
 Real-time keyboard input detection with multi-threaded event state tracking for interactive CLI applications.
+
+Functions:
 - `IsPressing(key)` — Check if a key is currently being pressed
 - `Pressed(key)` — Check if a key was pressed since last check
 - `ResetEvents()` — Clear all key press events
-- Supports: arrow keys, space, enter, escape, backspace, tab, and alphanumeric keys
 
-### Installation
+Supported keys: arrow keys, space, enter, escape, backspace, tab, and alphanumeric keys.
+
+## Installation
+
+Requires Go 1.18+
+
 ```bash
-go get github.com/cribest7890/ez_utils/@latest
+go get github.com/cribest7890/ez_utils@latest
 ```
 
-### Quick Start
+(Alternatively use Go modules: `go install github.com/cribest7890/ez_utils@latest`)
 
-**Colors Example:**
+## Quick start
+
+### Colors example
+
 ```go
 package main
 
@@ -49,7 +62,8 @@ func main() {
 }
 ```
 
-**Scanner Example:**
+### Scanner example
+
 ```go
 package main
 
@@ -61,15 +75,16 @@ import (
 func main() {
 	fmt.Print("Enter your name: ")
 	name := scanner.Nextstring()
-	
+
 	fmt.Print("Enter your age: ")
 	age := scanner.Nextint()
-	
+
 	fmt.Printf("Hello %s, you are %d years old!\n", name, age)
 }
 ```
 
-**Input Example:**
+### Input example
+
 ```go
 package main
 
@@ -87,5 +102,10 @@ func main() {
 }
 ```
 
-### License
-This project is licensed under the GNU Affero General Public License v3.0 — see LICENSE file for details.
+## Contributing
+
+Contributions welcome — please open issues or pull requests. Follow standard Go formatting (gofmt) and include tests for new features when possible.
+
+## License
+
+This project is licensed under the GNU Affero General Public License v3.0 — see the LICENSE file for details.
